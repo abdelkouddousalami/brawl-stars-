@@ -1207,3 +1207,9 @@ input {
         max-width: 200px;
     }
 }
+
+.gems-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}

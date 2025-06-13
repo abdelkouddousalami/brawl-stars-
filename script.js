@@ -75,9 +75,8 @@ function displayPlayerInfo(player) {
                     <span class="stat-label">Level</span>
                     <span class="stat-value">${player.expLevel}</span>
                 </div>
-            </div>
-            <div class="stat-item gems-stat">
-                <span class="stat-icon">💎</span>
+            </div>            <div class="stat-item gems-stat">
+                <img src="img/gems-brawl.png" class="stat-icon gems-icon" alt="Gems">
                 <div class="stat-info">
                     <span class="stat-label">Selected Pack</span>
                     <span class="stat-value">${selectedGems} gems</span>
@@ -85,7 +84,7 @@ function displayPlayerInfo(player) {
             </div>
         </div>
         <button class="continue-button" onclick="showCPATasks()">
-            <span class="button-icon">🎮</span>
+            <span class="button-icon"></span>
             Continue to Get Gems
         </button>
     `;
