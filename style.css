@@ -8,7 +8,7 @@
 
 body {
     min-height: 100vh;
-    background: url('img/brawl-back.jpg') no-repeat center center fixed;
+    background: url('img/brawl-back.webp') no-repeat center center fixed;
     background-size: cover;
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -18,24 +18,20 @@ body {
     align-items: center;
 }
 
-.parent {
+
+
+.container {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgb(0, 89, 255);
     backdrop-filter: blur(10px);
     width: 660px;
     min-height: 560px;
     border-radius: 20px;
     padding: 0.5rem;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-}
-
-.container {
-    width: 100%;
-    max-width: 500px;
-    padding: 0.5rem;
+    box-shadow: 0 0 30px rgba(0, 140, 255, 0.5);
 }
 
 .title-animated {
@@ -50,10 +46,10 @@ body {
 /* Base card styles */
 .packs {
     display: grid;
-    grid-template-columns: repeat(3, 150px);
-    height: 50px !important;
-    gap: 0 0.5rem;
-    justify-content: center;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    justify-items: center;
+    padding: 2rem;
 }
 
 .pack {
@@ -404,6 +400,7 @@ input {
     margin: 0 auto;
     border: 1px solid rgba(255, 215, 0, 0.3);
     animation: containerFade 0.5s ease-out;
+    width: 350px !important;
 }
 
 @keyframes containerFade {
@@ -884,13 +881,19 @@ input {
         width: calc(105% - 20px);
     }
     .container {
-        width: 100%;
+        width: 394px !important;
+        height: 177px !important;
+        margin: 0rem !important;
         padding: 0.3rem;
     }
     
     .packs {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, auto);
+        gap: 2rem;
+        row-gap: 4rem; /* Increased gap between rows */
+        margin: 2rem 0;
     }
 
     .pack {
@@ -1212,4 +1215,90 @@ input {
     width: 24px;
     height: 24px;
     object-fit: contain;
+}
+
+.gem-pack-image {
+    width: 130px;
+    height: 140px;
+    object-fit: cover;
+    border: 3px solid white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6), 0 4px 8px rgba(0, 0, 0, 0.4);
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.5));
+    margin: 0;
+    transform: skew(-5deg);
+}
+
+.gem-pack-image:hover {
+    transform: translateY(-8px) scale(1.02) skew(-5deg);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.8), 0 8px 16px rgba(0, 0, 0, 0.6);
+}
+
+.gem-pack-image.selected {
+    box-shadow: 0 0 30px rgba(76, 175, 80, 0.5);
+    transform: translateY(-8px) scale(1.05);
+}
+
+/* Gem pack grid responsive styles */
+@media (max-width: 768px) {
+    .packs {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .gem-pack-image {
+        width: 110px;
+        height: 120px;
+        margin: 20px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .packs {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+    
+    .gem-pack-image {
+        width: 90px;
+        height: 100px;
+    }
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+
+.logo-image {
+    max-width: 200px;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+    animation: logo-float 3s ease-in-out infinite;
+}
+
+@keyframes logo-float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .logo-container {
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+    }
+    
+    .logo-image {
+        max-width: 150px;
+    }
 }

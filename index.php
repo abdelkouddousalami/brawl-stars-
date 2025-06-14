@@ -5,14 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brawl Stars Gems</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?<?php echo time(); ?>">
 
 </head>
 
 <body>
+    <div class="logo-container">
+        <img src="img/logo-brawl.png" alt="Brawl Stars Logo" class="logo-image">
+    </div>
     <style>
         .container {
-            background: rgba(255, 255, 255, 0.1);
+            background-color: #2653d9;
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
@@ -33,12 +36,13 @@
             from {
                 text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 255, 255, 0.2);
             }
+
             to {
                 text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.4);
             }
         }
 
-    .packs {
+        .packs {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
@@ -81,8 +85,7 @@
             display: none;
         }
 
-        .pack.mega {
-        }
+        .pack.mega {}
 
         .pack.legendary::before {
             display: none;
@@ -93,16 +96,37 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.02);
+            }
         }
 
         @keyframes rainbow {
-            0% { filter: hue-rotate(0deg); }
-            25% { filter: hue-rotate(90deg); }
-            50% { filter: hue-rotate(180deg); }
-            75% { filter: hue-rotate(270deg); }
-            100% { filter: hue-rotate(360deg); }
+            0% {
+                filter: hue-rotate(0deg);
+            }
+
+            25% {
+                filter: hue-rotate(90deg);
+            }
+
+            50% {
+                filter: hue-rotate(180deg);
+            }
+
+            75% {
+                filter: hue-rotate(270deg);
+            }
+
+            100% {
+                filter: hue-rotate(360deg);
+            }
         }
 
         .pack-content {
@@ -121,8 +145,15 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         .gems-image img {
@@ -200,21 +231,40 @@
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-4px); }
-            60% { transform: translateY(-2px); }
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-4px);
+            }
+
+            60% {
+                transform: translateY(-2px);
+            }
         }
 
-        .user-form, .user-info, .loading-animation, .gems-loading-animation, .cpa-tasks {
+        .user-form,
+        .user-info,
+        .loading-animation,
+        .gems-loading-animation,
+        .cpa-tasks {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 20px;
             margin-top: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 390px !important;
         }
 
-        .user-form h2, .user-info h2 {
+        .user-form h2,
+        .user-info h2 {
             color: #fff;
             margin-bottom: 15px;
             text-align: center;
@@ -251,20 +301,67 @@
         .pack.selected {
             box-shadow: 0 0 30px rgba(76, 175, 80, 0.5) !important;
             transform: translateY(-8px) scale(1.05) !important;
-        }
-
-        @media (max-width: 768px) {
+        }        @media (max-width: 768px) {
             .packs {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 8px;
                 padding: 10px;
+            }            .title-animated {
+                font-size: 1.5rem;
+                margin-top: 60px;
+                margin-bottom: 15px;
+                color: #FFD700;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }.user-form {
+                width: 100%;
+                margin: 0;
+                padding: 20px;
+                background: rgba(0, 0, 0, 0.8);
+                border-radius: 0 0 12px 12px;
+                position: fixed;
+                bottom: 167px;
+                left: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
-            
-            .title-animated {
-                font-size: 1.8rem;
+
+            .user-form h2 {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+                color: #FFD700;
+                text-align: center;
+                width: 100%;
             }
-            
+
+            .user-form input {
+                width: 90%;
+                padding: 15px;
+                font-size: 1rem;
+                margin: 0 auto 15px;
+                border-radius: 8px;
+                background: rgba(255, 255, 255, 0.9);
+                border: 2px solid #FFD700;
+                text-align: center;
+            }
+
+            .user-form button {
+                width: 90%;
+                padding: 15px;
+                font-size: 1rem;
+                border-radius: 8px;
+                margin-top: 5px;
+                background: linear-gradient(135deg, #FFD700, #FFA500);
+                color: black;
+                font-weight: bold;
+                text-transform: uppercase;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
             .pack {
                 min-height: auto;
                 padding: 8px;
@@ -304,92 +401,63 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        .logo-container {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent);
+            width: 100%;
+            padding-top: 5px;
+            padding-bottom: 20px;
+        }
+
+        .logo-image {
+            width: 180px;
+            height: auto;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+            transition: transform 0.3s ease;
+            animation: logo-float 3s ease-in-out infinite;
+            margin-top: -27px;
+        }
+
+        @keyframes logo-float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo-container {
+                padding-top: 5px;
+                padding-bottom: 15px;
+            }
+
+            .logo-image {
+                width: 130px;
+                margin-top: 0;
+            }
+        }
     </style>
     <section class="parent">
         <div class="container">
             <div class="gems-packs">
-                <h1 class="title-animated">Select Your Free Gems Pack</h1>
-                <div class="packs">
-                    <div class="pack" data-gems="80" onclick="selectPack(80)">
-                        <div class="pack-content">
-                            <div class="gems-image">
-                                <img src="img/gems-brawl.png" alt="Gems Pack">
-                            </div>
-                            <h3>80 Gems</h3>
-                            <p class="pack-description">Starter Pack</p>
-                            <div class="price-container">
-                                <span class="original-price">$0.99</span>
-                                <span class="free-label">Free</span>
-                            </div>
-                            <div class="promo-badge">-100%</div>
-                        </div>
-                    </div>                    <div class="pack" data-gems="170" onclick="selectPack(170)">
-                        <div class="pack-content">
-                            <div class="gems-image">
-                                <img src="img/gems-brawl.png" alt="Gems Pack">
-                            </div>
-                            <h3>170 Gems</h3>
-                            <p class="pack-description">Advanced Pack</p>
-                            <div class="price-container">
-                                <span class="original-price">$1.99</span>
-                                <span class="free-label">Free</span>
-                            </div>
-                            <div class="promo-badge">-100%</div>
-                        </div>
-                    </div>                    <div class="pack featured" data-gems="360" onclick="selectPack(360)">
-                        <div class="pack-content">
-                            <div class="gems-image">
-                                <img src="img/gems-brawl.png" alt="Gems Pack">
-                            </div>
-                            <h3>360 Gems</h3>
-                            <p class="pack-description">Pro Pack</p>
-                            <div class="price-container">
-                                <span class="original-price">$4.99</span>
-                                <span class="free-label">Free</span>
-                            </div>
-                            <div class="promo-badge">HOT!</div>
-                        </div>
-                    </div>                    <div class="pack" data-gems="530" onclick="selectPack(530)">
-                        <div class="pack-content">
-                            <div class="gems-image">
-                                <img src="img/gems-brawl.png" alt="Gems Pack">
-                            </div>
-                            <h3>530 Gems</h3>
-                            <p class="pack-description">Elite Pack</p>
-                            <div class="price-container">
-                                <span class="original-price">$9.99</span>
-                                <span class="free-label">Free</span>
-                            </div>
-                            <div class="promo-badge">-100%</div>
-                        </div>
-                    </div>                   
-                       <div class="pack mega" data-gems="800" onclick="selectPack(800)">
-                        <div class="pack-content">
-                            <div class="gems-image">
-                                <img src="img/gems-brawl.png" alt="Gems Pack">
-                            </div>
-                            <h3>800 Gems</h3>
-                            <p class="pack-description">Mega Pack</p>
-                            <div class="price-container">
-                                <span class="original-price">$14.99</span>
-                                <span class="free-label">Free</span>
-                            </div>
-                            <div class="promo-badge">MEGA!</div>
-                        </div>
-                    </div>                    <div class="pack legendary" data-gems="1200" onclick="selectPack(1200)">
-                        <div class="pack-content">
-                            <div class="gems-image">
-                                <img src="img/gems-brawl.png" alt="Gems Pack">
-                            </div>
-                            <h3>1200 Gems</h3>
-                            <p class="pack-description">Legendary Pack</p>
-                            <div class="price-container">
-                                <span class="original-price">$24.99</span>
-                                <span class="free-label">Free</span>
-                            </div>
-                            <div class="promo-badge">EPIC!</div>
-                        </div>
-                    </div>
+                <h1 class="title-animated">Gems Packs</h1>                <div class="packs">
+                    <img src="img/30.png" alt="30 Gems Pack" onclick="selectPack(30)" class="gem-pack-image">
+                    <img src="img/80.png" alt="80 Gems Pack" onclick="selectPack(80)" class="gem-pack-image">
+                    <img src="img/170.png" alt="170 Gems Pack" onclick="selectPack(170)" class="gem-pack-image">
+                    <img src="img/360.png" alt="360 Gems Pack" onclick="selectPack(360)" class="gem-pack-image">
+                    <img src="img/950.png" alt="950 Gems Pack" onclick="selectPack(950)" class="gem-pack-image">
+                    <img src="img/2000.png" alt="2000 Gems Pack" onclick="selectPack(2000)" class="gem-pack-image">
                 </div>
             </div>
             <div id="userForm" class="user-form" style="display: none;">
@@ -448,7 +516,8 @@
             <div id="cpaTasksContainer" class="cpa-tasks" style="display: none;">
                 <div id="CPABuildLockContainer"></div>
             </div>
-        </div>    </section>
+        </div>
+    </section>
 
     <div class="shelly-character">
         <div class="shelly-speech"></div>
