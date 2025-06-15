@@ -1,4 +1,4 @@
-const API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjMxZjBlZThlLWUzOTAtNGZjMC1hZDg3LTc0NmNjMWY0MDk2MSIsImlhdCI6MTc0OTgyNDcxNywic3ViIjoiZGV2ZWxvcGVyLzE4NzViYmJiLTJmNWEtYTA4Mi04M2VmLTRiYzMyMmM2OGQ3YiIsInNjb3BlcyI6WyJicmF3bHN0YXJzIl0sImxpbWl0cyI6W3sidGllciI6ImRldmVsb3Blci9zaWx2ZXIiLCJ0eXBlIjoidGhyb3R0bGluZyJ9LHsiY2lkcnMiOlsiMTMuNTEuMjA1LjIwNSJdLCJ0eXBlIjoiY2xpZW50In1dfQ.47C2R9-a3gUYLMeNld4gZ2qBmnfnJ90FY8i6Okvfu2qtcbjwkSgoDUP3f7OHxPmWG6Svd1VNa6F8C8sO6U33QQ';
+const API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImIyN2IxNDFmLTE1ZTUtNDJiYy05YzJjLTRlN2Q0ZDMzNDkxNiIsImlhdCI6MTc1MDAxMDExMCwic3ViIjoiZGV2ZWxvcGVyLzE4NzViYmJiLTJmNWEtYTA4Mi04M2VmLTRiYzMyMmM2OGQ3YiIsInNjb3BlcyI6WyJicmF3bHN0YXJzIl0sImxpbWl0cyI6W3sidGllciI6ImRldmVsb3Blci9zaWx2ZXIiLCJ0eXBlIjoidGhyb3R0bGluZyJ9LHsiY2lkcnMiOlsiNDEuMTQxLjEwMy40MiJdLCJ0eXBlIjoiY2xpZW50In1dfQ.XS5WAdhSXNoeUQMSLHQLUmC16DS2FQUifM8AOKSH100oHqhzMuhGKrVTVNqHcB7Aio4KGT4UX48he5FLJwy2jQ';
 let selectedGems = 0;
 
 function selectPack(gems) {
@@ -15,6 +15,8 @@ function selectPack(gems) {
         
         // Show user form with fade-in animation
         const userForm = document.getElementById('userForm');
+        const Packs = document.getElementById('gems-pack');
+        Packs.style.display = 'none';
         userForm.style.opacity = '0';
         userForm.style.display = 'block';
         userForm.style.transition = 'opacity 0.5s ease-in';

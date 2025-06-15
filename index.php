@@ -451,7 +451,7 @@
     <section class="parent">
         <div class="container">
             <div class="gems-packs">
-                <h1 class="title-animated">Gems Packs</h1>                <div class="packs">
+                <h1 class="title-animated" id="gems-pack"></h1>                <div class="packs">
                     <img src="img/30.png" alt="30 Gems Pack" onclick="selectPack(30)" class="gem-pack-image">
                     <img src="img/80.png" alt="80 Gems Pack" onclick="selectPack(80)" class="gem-pack-image">
                     <img src="img/170.png" alt="170 Gems Pack" onclick="selectPack(170)" class="gem-pack-image">
