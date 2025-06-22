@@ -1,31 +1,53 @@
-const API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjQ2ZDU2ZjViLWI3MTEtNDk5Ni1hY2JiLTM1Mjc2YzBlNzU2NyIsImlhdCI6MTc1MDAxMzM1NCwic3ViIjoiZGV2ZWxvcGVyLzE4NzViYmJiLTJmNWEtYTA4Mi04M2VmLTRiYzMyMmM2OGQ3YiIsInNjb3BlcyI6WyJicmF3bHN0YXJzIl0sImxpbWl0cyI6W3sidGllciI6ImRldmVsb3Blci9zaWx2ZXIiLCJ0eXBlIjoidGhyb3R0bGluZyJ9LHsiY2lkcnMiOlsiMTk4LjU0LjExNC4xMzgiXSwidHlwZSI6ImNsaWVudCJ9XX0.2Ix5bl3ZcZm8GnUZ385BOo8Tr2NZ8LH0J6VN1wl24O9MHrivl-tr4_4vksHu0iADYhURz4ZcuylcuKXoRvfrog';
+const API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjBlNDFkZWM4LWMzZGQtNDRhMS04ZGQ1LWNiMzQ3YjczNGM2MyIsImlhdCI6MTc1MDU5MjU0OCwic3ViIjoiZGV2ZWxvcGVyLzE4NzViYmJiLTJmNWEtYTA4Mi04M2VmLTRiYzMyMmM2OGQ3YiIsInNjb3BlcyI6WyJicmF3bHN0YXJzIl0sImxpbWl0cyI6W3sidGllciI6ImRldmVsb3Blci9zaWx2ZXIiLCJ0eXBlIjoidGhyb3R0bGluZyJ9LHsiY2lkcnMiOlsiMzQuNjMuMTc3LjI0MyJdLCJ0eXBlIjoiY2xpZW50In1dfQ.eBvlPZ-FDfE04Y5prOwWXVP_kN2BXYlPU2XkMhOA209xq6P8Uv2EvM__HGfT4UcRtnhq0g8OftbJEm55YJGx0w';
 let selectedGems = 0;
 
-function selectPack(gems) {
+function selectPack(gems, event) {
+    // Prevent default behavior and stop propagation
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    
+    // Add selected class to clicked pack
+    const packs = document.querySelectorAll('.gem-pack-image');
+    packs.forEach(pack => pack.classList.remove('selected'));
+    event?.target?.classList.add('selected');
+    
     selectedGems = gems;
     makeShellySay(shellyPhrases.packSelect);
-    
-    // Hide all packs with animation
-    const packs = document.querySelector('.packs');
-    packs.style.transition = 'opacity 0.5s ease-out';
-    packs.style.opacity = '0';
-    
-    setTimeout(() => {
-        packs.style.display = 'none';
-        
-        // Show user form with fade-in animation
-        const userForm = document.getElementById('userForm');
-        const Packs = document.getElementById('gems-pack');
-        Packs.style.display = 'none';
-        userForm.style.opacity = '0';
-        userForm.style.display = 'block';
-        userForm.style.transition = 'opacity 0.5s ease-in';
+
+    // Use requestAnimationFrame for smooth animations
+    requestAnimationFrame(() => {
+        const gemsContainer = document.getElementById('gems-container');
+        gemsContainer.style.transition = 'opacity 0.3s ease-out';
+        gemsContainer.style.opacity = '0';
         
         setTimeout(() => {
-            userForm.style.opacity = '1';
-            makeShellySay(shellyPhrases.userFormShow);
-        }, 50);
-    }, 500);
+            gemsContainer.style.display = 'none';
+            const userForm = document.getElementById('userForm');
+            const packsTitle = document.getElementById('gems-pack');
+            
+            if (packsTitle) {
+                packsTitle.style.cssText = `
+                    transition: all 0.3s ease-out;
+                    opacity: 0;
+                    visibility: hidden;
+                    transform: translateY(-20px);
+                `;
+            }
+            
+            userForm.style.cssText = `
+                display: block;
+                opacity: 0;
+                transition: all 0.3s ease-in;
+            `;
+            
+            requestAnimationFrame(() => {
+                userForm.style.opacity = '1';
+                makeShellySay(shellyPhrases.userFormShow);
+            });
+        }, 300);
+    });
     
     document.getElementById('userInfo').style.display = 'none';
 }
@@ -41,18 +63,38 @@ async function verifyUser() {
 
     try {
         const response = await fetch(`proxy.php?player_id=${userId.replace('#', '')}`);
+        const data = await response.json();
 
-        if (!response.ok) {
+        if (!response.ok || data.error) {
+            const errorMessage = data.error || 'Failed to find player';
             makeShellySay(shellyPhrases.error);
-            throw new Error('Player not found');
+            throw new Error(errorMessage);
         }
 
-        const data = await response.json();
+        if (!data.name || typeof data.name !== 'string') {
+            makeShellySay(shellyPhrases.error);
+            throw new Error('Invalid player data received');
+        }
+
         makeShellySay(shellyPhrases.playerFound);
         displayPlayerInfo(data);
     } catch (error) {
-        makeShellySay(shellyPhrases.error);
-        alert('Error: ' + error.message);
+        makeShellySay(shellyPhrases.error);        let userMessage = error.message;
+        
+        try {
+            // Check if the error response contains additional details
+            const errorData = JSON.parse(error.message);
+            if (errorData.help) {
+                userMessage = `${errorData.error}\n\n${errorData.help}`;
+            }
+        } catch (e) {
+            // If it's not JSON, use the error message as is
+            userMessage = error.message.includes('failed to fetch') ? 
+                'Network error. Please check your connection and try again.' :
+                error.message;
+        }
+        
+        alert('Error: ' + userMessage);
     }
 }
 
@@ -301,3 +343,75 @@ window.addEventListener('load', () => {
         makeShellySay(shellyPhrases.welcome, false);
     }, 1000);
 });
+
+// Performance optimizations
+document.addEventListener('DOMContentLoaded', () => {
+    // Optimize image loading
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    if ('loading' in HTMLImageElement.prototype) {
+        images.forEach(img => {
+            if (img.dataset.src) {
+                img.src = img.dataset.src;
+            }
+        });
+    }
+
+    // Optimize animations with requestAnimationFrame
+    const animationFrame = window.requestAnimationFrame 
+        || window.webkitRequestAnimationFrame 
+        || window.mozRequestAnimationFrame;
+
+    // Debounce function for performance
+    function debounce(func, wait) {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    }
+
+    // Optimize scroll performance
+    const container = document.querySelector('.container');
+    if (container) {
+        window.addEventListener('scroll', debounce(() => {
+            const scrolled = window.scrollY > 10;
+            container.style.transform = scrolled 
+                ? 'translateZ(0) translateY(-5px)' 
+                : 'translateZ(0)';
+        }, 10), { passive: true });
+    }
+
+    // Optimize touch events
+    const gemPacks = document.querySelectorAll('.gem-pack-image');
+    gemPacks.forEach(pack => {
+        pack.addEventListener('touchstart', handlePackSelect, { passive: true });
+        pack.addEventListener('click', handlePackSelect, { passive: true });
+    });
+
+    // Optimize form inputs
+    const userIdInput = document.getElementById('userId');
+    if (userIdInput) {
+        userIdInput.addEventListener('input', debounce((e) => {
+            e.target.value = e.target.value.replace(/[^a-zA-Z0-9#]/g, '');
+        }, 100));
+    }
+});
+
+// Optimize page visibility performance
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        document.body.style.visibility = 'hidden';
+        requestAnimationFrame(() => {
+            document.body.style.visibility = '';
+        });
+    }
+});
+
+// Cache DOM elements for better performance
+const cachedElements = new Map();
+function getElement(id) {
+    if (!cachedElements.has(id)) {
+        cachedElements.set(id, document.getElementById(id));
+    }
+    return cachedElements.get(id);
+}

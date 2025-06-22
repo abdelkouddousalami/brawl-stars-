@@ -6,8 +6,22 @@
     box-sizing: border-box;
 }
 
+/* Performance optimizations */
+* {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Optimize performance with hardware acceleration */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     min-height: 100vh;
+    min-height: -webkit-fill-available; /* iOS height fix */
     background: url('img/brawl-back.webp') no-repeat center center fixed;
     background-size: cover;
     font-family: 'Poppins', sans-serif;
@@ -16,6 +30,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
 }
 
 
@@ -27,11 +46,16 @@ body {
     align-items: flex-start;
     background-color: rgb(0, 89, 255);
     backdrop-filter: blur(10px);
-    width: 660px;
+    -webkit-backdrop-filter: blur(10px);
+    width: min(660px, 95%);
     min-height: 560px;
     border-radius: 20px;
-    padding: 0.5rem;
+    padding: max(0.5rem, 2vh);
     box-shadow: 0 0 30px rgba(0, 140, 255, 0.5);
+    margin: 80px auto 20px;
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
 }
 
 .title-animated {
@@ -879,12 +903,14 @@ input {
     .parent {
         margin-left: 10px;
         width: calc(105% - 20px);
+        padding-top: 10px;
     }
     .container {
         width: 394px !important;
         height: 177px !important;
         margin: 0rem !important;
         padding: 0.3rem;
+        margin-top: 60px;
     }
     
     .packs {
@@ -1229,6 +1255,8 @@ input {
     filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.5));
     margin: 0;
     transform: skew(-5deg);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .gem-pack-image:hover {
@@ -1257,48 +1285,139 @@ input {
 }
 
 @media (max-width: 480px) {
+    .container {
+        margin-top: 60px;
+        padding: 0.25rem;
+        width: 98%;
+    }
+
     .packs {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
         gap: 0.5rem;
         padding: 0.5rem;
     }
-    
+
     .gem-pack-image {
-        width: 90px;
-        height: 100px;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        transform: scale(0.9);
+    }
+
+    #userForm {
+        padding: 1rem;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        max-width: 280px;
+        font-size: 16px; /* Prevent iOS zoom on focus */
+        padding: 12px;
+    }
+
+    .title-animated {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
     }
 }
 
-.logo-container {
-    text-align: center;
-    margin-bottom: 1rem;
-    padding: 1rem;
-}
-
-.logo-image {
-    max-width: 200px;
-    height: auto;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-    animation: logo-float 3s ease-in-out infinite;
-}
-
-@keyframes logo-float {
-    0%, 100% {
-        transform: translateY(0);
+/* Tablet optimization */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        width: 90%;
     }
-    50% {
-        transform: translateY(-10px);
+
+    .packs {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 1rem;
     }
 }
 
-/* Media query for smaller screens */
-@media (max-width: 768px) {
-    .logo-container {
-        margin-bottom: 0.5rem;
-        padding: 0.5rem;
+/* Touch device optimization */
+@media (hover: none) {
+    .gem-pack:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease;
+    }
+
+    .button:active {
+        transform: translateY(2px);
+    }
+}
+
+/* High-DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .logo-image, .gem-pack-image {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Optimize transitions */
+.gem-pack-image {
+    transform: translateZ(0);
+    will-change: transform;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: no-preference) {
+    .logo-image {
+        animation: float 3s ease-in-out infinite;
+        will-change: transform;
     }
     
-    .logo-image {
-        max-width: 150px;
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
     }
+}
+
+/* Optimize paint operations */
+.container {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Optimize for touch devices */
+@media (hover: none) {
+    .gem-pack-image {
+        transform: translateZ(0);
+        transition: transform 0.15s ease-out;
+    }
+    
+    .gem-pack-image:active {
+        transform: scale(0.95) translateZ(0);
+    }
+}
+
+/* Layer promotion for fixed elements */
+.logo-container {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Optimize form inputs */
+input, button {
+    -webkit-appearance: none;
+    appearance: none;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }

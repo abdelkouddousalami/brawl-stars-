@@ -5,21 +5,198 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brawl Stars Gems</title>
-    <link rel="stylesheet" href="style.css?<?php echo time(); ?>">
+    <link rel="stylesheet" href="style.css?<?php echo time(); ?>">    <!-- Preload critical resources -->
+    <link rel="preload" as="image" href="img/logo-brawl.png">
+    <link rel="preload" as="image" href="img/gems-brawl.png">
+    <link rel="preload" as="font" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" crossorigin>
+    
+    <!-- PWA and mobile optimization -->
+    <meta name="theme-color" content="#2653d9">
+    <meta name="description" content="Brawl Stars Gems Generator - Get free gems for your Brawl Stars account">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Performance optimization -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+      <style>
+        /* Critical CSS for initial render */
+        .container { opacity: 0; animation: fadeIn 0.3s ease-out forwards; }
+        @keyframes fadeIn { to { opacity: 1; } }
+        
+        /* Logo styling */
+        .logo-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+            padding: 10px;
+            pointer-events: none;
+            transform: translateZ(0);
+            will-change: transform;
+            -webkit-backface-visibility: hidden;
+        }
 
-</head>
+        .logo-image {
+            width: 180px;
+            height: auto;
+            margin-top: 10px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+            animation: floatLogo 3s ease-in-out infinite;
+            pointer-events: auto;
+        }
 
-<body>
-    <div class="logo-container">
-        <img src="img/logo-brawl.png" alt="Brawl Stars Logo" class="logo-image">
-    </div>
-    <style>
+        @keyframes floatLogo {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo-container {
+                padding: 5px;
+            }
+
+            .logo-image {
+                width: 140px;
+                margin-top: 5px;
+            }
+        }
+
+        /* Adjust main content to avoid logo overlap */
+        .container {
+            margin-top: 100px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 80px;
+            }
+        }
+
+        /* Image optimization CSS */
+        img {
+            max-width: 100%;
+            height: auto;
+            will-change: transform;
+        }
+
+        .gem-pack-image {
+            width: 110px;
+            height: 120px;
+            object-fit: contain;
+            backface-visibility: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .gem-pack-image {
+                width: 90px;
+                height: 100px;
+            }
+        }
+
+        /* Optimize animations for mobile */
+        @media (prefers-reduced-motion: reduce) {
+            .title-animated,
+            .pack,
+            .gems-image,
+            .logo-image {
+                animation: none !important;
+                transform: none !important;
+            }
+        }
+
+        /* Base container optimization */
         .container {
             background-color: #2653d9;
-            backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 30px;
+            padding: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            contain: content;
+            will-change: transform;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Mobile-first approach */
+        @media (max-width: 768px) {
+            .parent {
+                margin: 0;
+                padding: 10px;
+                width: 100%;
+                box-sizing: border-box;
+                overscroll-behavior: none;
+            }
+
+            .container {
+                width: 100% !important;
+                height: auto !important;
+                margin: 0 !important;
+                padding: 15px;
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+            }
+
+            .packs {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                padding: 10px;
+                contain: layout style paint;
+            }
+
+            /* Optimize transitions */
+            .pack,
+            .gem-pack-image {
+                transition: transform 0.2s ease-out;
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+            }
+
+            /* Touch optimization */
+            .gem-pack-image {
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+                user-select: none;
+                -webkit-user-select: none;
+            }
+
+            /* Form optimization */
+            .user-form {
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+                backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
+                contain: layout style paint;
+            }
+
+            .user-form input,
+            .user-form button {
+                -webkit-appearance: none;
+                appearance: none;
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+            }
+
+            /* Reduce animation complexity */
+            @media (prefers-reduced-motion: no-preference) {
+                .title-animated {
+                    animation-duration: 0.5s;
+                }
+
+                .floating-gem {
+                    animation-duration: 1s;
+                }
+            }
         }
 
         .title-animated {
@@ -301,20 +478,26 @@
         .pack.selected {
             box-shadow: 0 0 30px rgba(76, 175, 80, 0.5) !important;
             transform: translateY(-8px) scale(1.05) !important;
-        }        @media (max-width: 768px) {
+        }
+
+        @media (max-width: 768px) {
             .packs {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 8px;
                 padding: 10px;
-            }            .title-animated {
+            }
+
+            .title-animated {
                 font-size: 1.5rem;
                 margin-top: 60px;
                 margin-bottom: 15px;
                 color: #FFD700;
                 text-transform: uppercase;
                 letter-spacing: 1px;
-            }.user-form {
+            }
+
+            .user-form {
                 width: 100%;
                 margin: 0;
                 padding: 20px;
@@ -402,6 +585,7 @@
             }
         }
 
+        /* Logo Container Styles */
         .logo-container {
             position: fixed;
             top: 0;
@@ -409,10 +593,10 @@
             transform: translateX(-50%);
             text-align: center;
             z-index: 1000;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent);
             width: 100%;
-            padding-top: 5px;
-            padding-bottom: 20px;
+            padding: 10px 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+            pointer-events: none;
         }
 
         .logo-image {
@@ -421,11 +605,11 @@
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
             transition: transform 0.3s ease;
             animation: logo-float 3s ease-in-out infinite;
-            margin-top: -27px;
+            margin-top: -10px;
+            pointer-events: auto;
         }
 
         @keyframes logo-float {
-
             0%,
             100% {
                 transform: translateY(0);
@@ -436,28 +620,99 @@
             }
         }
 
+        /* Mobile Logo Styles */
         @media (max-width: 768px) {
             .logo-container {
-                padding-top: 5px;
-                padding-bottom: 15px;
+                padding: 5px 0;
+                top: 0;
+                background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0.9) 0%,
+                    rgba(0, 0, 0, 0.7) 50%,
+                    rgba(0, 0, 0, 0) 100%
+                );
+                height: 80px;
+                display: flex;
+                align-items: flex-start;
+                justify-content: center;
             }
 
             .logo-image {
-                width: 130px;
-                margin-top: 0;
+                width: 140px;
+                height: auto;
+                margin-top: 5px;
+                filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+                will-change: transform;
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+            }
+
+            /* Adjust container spacing for logo */
+            .container {
+                margin-top: 70px !important;
+            }
+
+            .title-animated {
+                margin-top: 10px;
+            }
+
+            /* Optimize animation for better performance */
+            @media (prefers-reduced-motion: no-preference) {
+                .logo-image {
+                    animation: logo-float 2s ease-in-out infinite;
+                }
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 360px) {
+            .logo-container {
+                height: 70px;
+            }
+
+            .logo-image {
+                width: 120px;
+                margin-top: 8px;
+            }
+
+            .container {
+                margin-top: 60px !important;
+            }
+        }
+
+        /* Mobile touch improvements */
+        @media (max-width: 768px) {
+            .gem-pack-image {
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+                transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+            }
+
+            .gem-pack-image:active {
+                transform: scale(0.95);
+                opacity: 0.7;
+            }
+
+            .gem-pack-image.selected {
+                box-shadow: 0 0 20px rgba(76, 175, 80, 0.8);
+                transform: scale(1.05);
             }
         }
     </style>
+</head>
+
+<body>
+    <div class="logo-container">
+        <img src="img/logo-brawl.png" alt="Brawl Stars Logo" class="logo-image" width="180" height="60" fetchpriority="high">
+    </div>
     <section class="parent">
-        <div class="container">
-            <div class="gems-packs">
-                <h1 class="title-animated" id="gems-pack"></h1>                <div class="packs">
-                    <img src="img/30.png" alt="30 Gems Pack" onclick="selectPack(30)" class="gem-pack-image">
-                    <img src="img/80.png" alt="80 Gems Pack" onclick="selectPack(80)" class="gem-pack-image">
-                    <img src="img/170.png" alt="170 Gems Pack" onclick="selectPack(170)" class="gem-pack-image">
-                    <img src="img/360.png" alt="360 Gems Pack" onclick="selectPack(360)" class="gem-pack-image">
-                    <img src="img/950.png" alt="950 Gems Pack" onclick="selectPack(950)" class="gem-pack-image">
-                    <img src="img/2000.png" alt="2000 Gems Pack" onclick="selectPack(2000)" class="gem-pack-image">
+        <div class="container">            <div class="gems-packs" id="gems-container">
+                <h1 class="title-animated" id="gems-pack">Gems Packs</h1>
+                <div class="packs">                    <img src="img/30.png" alt="30 Gems Pack" onclick="selectPack(30, event)" class="gem-pack-image" loading="lazy" width="110" height="120">
+                    <img src="img/80.png" alt="80 Gems Pack" onclick="selectPack(80, event)" class="gem-pack-image" loading="lazy" width="110" height="120">
+                    <img src="img/170.png" alt="170 Gems Pack" onclick="selectPack(170, event)" class="gem-pack-image" loading="lazy" width="110" height="120">
+                    <img src="img/360.png" alt="360 Gems Pack" onclick="selectPack(360, event)" class="gem-pack-image" loading="lazy" width="110" height="120">
+                    <img src="img/950.png" alt="950 Gems Pack" onclick="selectPack(950, event)" class="gem-pack-image" loading="lazy" width="110" height="120">
+                    <img src="img/2000.png" alt="2000 Gems Pack" onclick="selectPack(2000, event)" class="gem-pack-image" loading="lazy" width="110" height="120">
                 </div>
             </div>
             <div id="userForm" class="user-form" style="display: none;">
